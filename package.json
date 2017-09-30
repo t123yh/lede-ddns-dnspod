@@ -1,0 +1,24 @@
+{
+  "name": "lede-ddns-dnspod",
+  "version": "1.0.0",
+  "description": "DDNS script for DNSPod on luci-app-ddns.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t123yh/lede-ddns-dnspod.git"
+  },
+  "author": "t123yh",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/t123yh/lede-ddns-dnspod/issues"
+  },
+  "homepage": "https://github.com/t123yh/lede-ddns-dnspod#readme",
+  "dependencies": {
+    "dnspod-api": "^1.0.12",
+    "effective-domain-name-parser": "0.0.3",
+    "lodash": "^4.17.4"
+  }
+}
