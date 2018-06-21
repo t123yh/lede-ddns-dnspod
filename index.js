@@ -2,8 +2,8 @@ var domainNameParser = require("effective-domain-name-parser"),
     dnspodApi = require('dnspod-api'),
     _ = require('lodash');
 
-
 var param = process.argv.slice(2);
+var ipaddr = param[3];
 var token = param[0] + ',' + param[1];
 var dnspod =  new dnspodApi({
     server: 'dnspod.cn',
@@ -39,6 +39,7 @@ dnspod.do({
             domain: domainName,
             record_id: record.id,
             record_line_id: record.line_id,
+            value: ipaddr
         }
     });
 }).then(function(result) {
