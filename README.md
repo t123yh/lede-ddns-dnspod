@@ -1,15 +1,14 @@
 # DNSPod script for LEDE DDNS custom scripts
 Usage (on LEDE):
 ```sh
-opkg install node
-# cd to project root
-cd /root/lede-ddns-dnspod
-npm install
+opkg install python3-pip
+pip install requests tldextract
+git clone https://github.com/t123yh/lede-ddns-dnspod /root/dnspod
 ```
 
 In luci-app-ddns:
 
-update\_script: /root/lede-ddns-dnspod/update.sh
+update\_script: /root/dnspod/update.sh
 
 username: DNSPod token ID (e.g. 12345)
 
