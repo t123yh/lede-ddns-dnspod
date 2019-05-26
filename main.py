@@ -31,15 +31,12 @@ try:
     domainInfo = tldextract.TLDExtract(suffix_list_urls=None)(Domain)
     subdomainName = domainInfo.subdomain or "@"
     domainName = "{}.{}".format(domainInfo.domain, domainInfo.suffix)
-    print(subdomainName)
-    print(domainName)
 
     record_list = list(dnspod_request("Record.List", {'domain': domainName, 'sub_domain': subdomainName})["records"])
     rl = [a for a in record_list if a["type"] == "A" and a["name"] == subdomainName]
     if len(rl) == 0:
         raise RuntimeError("No matching record")
     record = rl[0]
-    print(record)
     update_result = dnspod_request("Record.Ddns", {'domain': domainName,
                                                    'record_id': record["id"],
                                                    'sub_domain': subdomainName,
