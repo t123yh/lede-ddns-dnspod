@@ -43,5 +43,7 @@ try:
                                                    'record_line_id': record["line_id"],
                                                    'value': IP})
     print("OK: " + update_result["status"]["message"])
+    sys.exit(0)
 except Exception as ex:
     print("Error: " + str(ex))
+    sys.exit(1)
