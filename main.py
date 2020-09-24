@@ -1,4 +1,5 @@
 import requests
+import ipaddress
 import sys
 import tldextract
 
@@ -33,13 +34,22 @@ try:
     domainName = "{}.{}".format(domainInfo.domain, domainInfo.suffix)
 
     record_list = list(dnspod_request("Record.List", {'domain': domainName, 'sub_domain': subdomainName})["records"])
-    rl = [a for a in record_list if a["type"] == "A" and a["name"] == subdomainName]
+    
+    if ipaddress.ip_address(IP).version == 4:
+        rtype = "A"
+    elif ipaddress.ip_address(IP).version == 6:
+        rtype = "AAAA"
+    else:
+        raise Exception("Incorrect IP", IP)
+
+    rl = [a for a in record_list if a["type"] == rtype and a["name"] == subdomainName]
     if len(rl) == 0:
         raise RuntimeError("No matching record")
     record = rl[0]
-    update_result = dnspod_request("Record.Ddns", {'domain': domainName,
+    update_result = dnspod_request("Record.Modify", {'domain': domainName,
                                                    'record_id': record["id"],
                                                    'sub_domain': subdomainName,
+                                                   'record_type': record["type"],
                                                    'record_line_id': record["line_id"],
                                                    'value': IP})
     print("OK: " + update_result["status"]["message"])
